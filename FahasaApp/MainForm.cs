@@ -24,7 +24,6 @@ namespace FahasaApp
 
         private int rowCount = 0;   // for load more data to mainform
         private int rowCountCateogy = 0; // for load more data of category datagridview
-        public int currrentOrderID = -1;
 
         DataTable currentDataTable = new DataTable();
         DataTable currentCategoryTable = new DataTable();
@@ -72,7 +71,7 @@ namespace FahasaApp
             //Init first data for Mainform
             try
             {
-                    SqlConnection conn = new SqlConnection(Program.getConnectString());
+                SqlConnection conn = new SqlConnection(Program.getConnectString());
                 conn.Open();
                 SqlCommand cmd = new SqlCommand("[GetFirst10Books]", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -995,7 +994,7 @@ namespace FahasaApp
 /// Section to Detail Book
 /// </summary>
         
-        public void openChildForm(Form childForm)
+        private void openChildForm(Form childForm)
         {
             ///store current Datagridview
             currentDataGridView = dataGridViewBookShow;
@@ -1056,7 +1055,7 @@ namespace FahasaApp
             closeChildFormAndOpenGridView();
         }
 
-        public void pictureBoxShopCart_Click(object sender, EventArgs e)
+        private void pictureBoxShopCart_Click(object sender, EventArgs e)
         {
             CartForm cartForm = new CartForm();
             openChildForm(cartForm);
@@ -1113,14 +1112,6 @@ namespace FahasaApp
             this.btnSignUp.Click -= new System.EventHandler(this.LogoutAccount);
 
             MessageBox.Show("Bạn đã đăng xuất");
-            Properties.Settings.Default.userID = null;
-            Properties.Settings.Default.username = null;
-            Properties.Settings.Default.userPhone = null;
-            Properties.Settings.Default.userAddress = null;
-            Properties.Settings.Default.currentOrderID = -1;
-            Program.refreshSettings();
-            btnHome_Click(sender, e);
-
         }
 
         private void InitiaForm()
